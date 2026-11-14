@@ -1,0 +1,426 @@
+[
+  {
+    "url": "https://en.wikipedia.org/wiki/Search_engine",
+    "title": "Search engine",
+    "text": "A search engine is a software system that finds web pages matching a query and shows them as a ranked list. It works in three stages: a web crawler collects pages, an indexer stores which words appear on which pages, and a ranking step decides the order of results. Modern search engines answer most queries in a fraction of a second.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Web_crawler",
+      "https://en.wikipedia.org/wiki/Search_engine_indexing",
+      "https://en.wikipedia.org/wiki/Information_retrieval",
+      "https://en.wikipedia.org/wiki/PageRank",
+      "https://en.wikipedia.org/wiki/Google_Search",
+      "https://en.wikipedia.org/wiki/World_Wide_Web"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Web_crawler",
+    "title": "Web crawler",
+    "text": "A web crawler, also called a spider or bot, visits web pages automatically and follows the hyperlinks it finds to reach new pages. It starts from a list of seed URLs and keeps a queue of pages still to visit. A polite crawler limits how often it requests pages from one site and obeys the rules in robots.txt.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Search_engine",
+      "https://en.wikipedia.org/wiki/Robots.txt",
+      "https://en.wikipedia.org/wiki/Hyperlink",
+      "https://en.wikipedia.org/wiki/Web_scraping",
+      "https://en.wikipedia.org/wiki/HTTP",
+      "https://en.wikipedia.org/wiki/World_Wide_Web"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Inverted_index",
+    "title": "Inverted index",
+    "text": "An inverted index maps each word to the list of documents that contain it, much like the index at the back of a book. Each entry is called a posting and can store how many times the word appears and at which positions. Search engines use an inverted index so they can find matching pages without scanning every document.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Search_engine_indexing",
+      "https://en.wikipedia.org/wiki/Database_index",
+      "https://en.wikipedia.org/wiki/Information_retrieval",
+      "https://en.wikipedia.org/wiki/Search_engine"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/PageRank",
+    "title": "PageRank",
+    "text": "PageRank is an algorithm that scores the importance of web pages from the links between them. A page is important when many important pages link to it. The algorithm imagines a random surfer who keeps clicking links and sometimes jumps to a random page; the share of time spent on each page becomes its PageRank score.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Larry_Page",
+      "https://en.wikipedia.org/wiki/Google_Search",
+      "https://en.wikipedia.org/wiki/Markov_chain",
+      "https://en.wikipedia.org/wiki/Graph_theory",
+      "https://en.wikipedia.org/wiki/Hyperlink",
+      "https://en.wikipedia.org/wiki/Search_engine"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Okapi_BM25",
+    "title": "Okapi BM25",
+    "text": "BM25 is a ranking function that scores how relevant a document is to a search query. It rewards documents that contain the query terms often, gives more weight to rare terms, and adjusts for document length so long pages do not win just by being long. BM25 is the standard relevance baseline in information retrieval.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Tf%E2%80%93idf",
+      "https://en.wikipedia.org/wiki/Information_retrieval",
+      "https://en.wikipedia.org/wiki/Relevance_(information_retrieval)",
+      "https://en.wikipedia.org/wiki/Vector_space_model"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Tf%E2%80%93idf",
+    "title": "tf–idf",
+    "text": "Term frequency–inverse document frequency, or tf-idf, measures how important a word is to a document in a collection. A term scores high when it appears often in one document but rarely in the rest of the collection. Ranking functions such as BM25 build on the same idea.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Okapi_BM25",
+      "https://en.wikipedia.org/wiki/Vector_space_model",
+      "https://en.wikipedia.org/wiki/Information_retrieval",
+      "https://en.wikipedia.org/wiki/Stop_word"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Information_retrieval",
+    "title": "Information retrieval",
+    "text": "Information retrieval is the field that studies how to find relevant documents in a large collection for a user query. It covers indexing, ranking models such as BM25 and the vector space model, and evaluation with measures such as precision and recall. Web search engines are the best-known application of information retrieval.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Search_engine",
+      "https://en.wikipedia.org/wiki/Okapi_BM25",
+      "https://en.wikipedia.org/wiki/Precision_and_recall",
+      "https://en.wikipedia.org/wiki/Relevance_(information_retrieval)",
+      "https://en.wikipedia.org/wiki/Inverted_index",
+      "https://en.wikipedia.org/wiki/Vector_space_model"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Stemming",
+    "title": "Stemming",
+    "text": "Stemming reduces words to a common root form, so that crawling, crawled and crawls all match the stem crawl. The Porter stemmer, published in 1980, is the most widely used stemming algorithm for English. Search engines apply the same stemmer to pages and to queries so that word forms match.",
+    "links": [
+      "https://www.nltk.org/api/nltk.stem.porter.html",
+      "https://en.wikipedia.org/wiki/Natural_language_processing",
+      "https://en.wikipedia.org/wiki/Text_segmentation",
+      "https://en.wikipedia.org/wiki/Stop_word"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Stop_word",
+    "title": "Stop word",
+    "text": "Stop words are very common words such as the, is, and of that carry little meaning on their own. Many search engines remove stop words before indexing to save space and to focus ranking on the words that matter. Phrase search may still need them, so some systems keep their positions.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Stemming",
+      "https://en.wikipedia.org/wiki/Natural_language_processing",
+      "https://en.wikipedia.org/wiki/Tf%E2%80%93idf",
+      "https://en.wikipedia.org/wiki/Text_segmentation"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Robots.txt",
+    "title": "robots.txt",
+    "text": "robots.txt is a plain text file at the root of a website that tells crawlers which paths they may not visit. It can also suggest a crawl delay between requests. Well-behaved crawlers download robots.txt first and skip every disallowed URL.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Web_crawler",
+      "https://docs.python.org/3/library/urllib.robotparser.html",
+      "https://en.wikipedia.org/wiki/HTTP"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Text_segmentation",
+    "title": "Text segmentation",
+    "text": "Text segmentation splits text into meaningful units such as words, sentences or topics. Splitting text into words, called tokenization, is the first step of most search and language processing pipelines. For English, a simple tokenizer can split on spaces and punctuation and convert every word to lowercase.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Natural_language_processing",
+      "https://en.wikipedia.org/wiki/Stemming",
+      "https://en.wikipedia.org/wiki/Stop_word"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Precision_and_recall",
+    "title": "Precision and recall",
+    "text": "Precision is the share of returned results that are relevant, and recall is the share of all relevant documents that were returned. Search engines often report precision at 10, the precision of the first ten results, because users rarely look further. Precision and recall are the basic measures of retrieval quality.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Mean_reciprocal_rank",
+      "https://en.wikipedia.org/wiki/Information_retrieval",
+      "https://en.wikipedia.org/wiki/Relevance_(information_retrieval)"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Mean_reciprocal_rank",
+    "title": "Mean reciprocal rank",
+    "text": "Mean reciprocal rank, or MRR, evaluates a ranked result list by the position of the first relevant result. A query whose first relevant result is at rank 1 scores 1, at rank 2 scores one half, and so on. MRR is the average of these scores over a set of test queries.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Precision_and_recall",
+      "https://en.wikipedia.org/wiki/Information_retrieval"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/World_Wide_Web",
+    "title": "World Wide Web",
+    "text": "The World Wide Web is a system of documents and resources connected by hyperlinks and identified by URLs. Web pages are written in HTML and delivered by web servers over HTTP. Tim Berners-Lee proposed the web in 1989 at CERN.",
+    "links": [
+      "https://en.wikipedia.org/wiki/HTML",
+      "https://en.wikipedia.org/wiki/HTTP",
+      "https://en.wikipedia.org/wiki/Hyperlink",
+      "https://en.wikipedia.org/wiki/Search_engine"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Hyperlink",
+    "title": "Hyperlink",
+    "text": "A hyperlink is a reference in a document that the reader can follow to reach another document or another place in the same document. In HTML a link is written with the anchor element and its href attribute. The links between pages form a graph that crawlers follow and that PageRank analyses.",
+    "links": [
+      "https://en.wikipedia.org/wiki/HTML",
+      "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a",
+      "https://en.wikipedia.org/wiki/World_Wide_Web",
+      "https://en.wikipedia.org/wiki/PageRank",
+      "https://en.wikipedia.org/wiki/Graph_theory"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/HTML",
+    "title": "HTML",
+    "text": "HTML, the HyperText Markup Language, describes the structure of a web page with elements such as headings, paragraphs and links. Browsers render HTML into the page you see. A search engine parser strips the markup and keeps the visible text, the title and the links.",
+    "links": [
+      "https://en.wikipedia.org/wiki/World_Wide_Web",
+      "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a",
+      "https://en.wikipedia.org/wiki/Hyperlink",
+      "https://en.wikipedia.org/wiki/Web_scraping"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/HTTP",
+    "title": "HTTP",
+    "text": "HTTP, the Hypertext Transfer Protocol, is the request and response protocol used to fetch web pages. A client sends a request such as GET for a URL and the server answers with a status code, headers and a body. A crawler reads the status code to tell a good page from a redirect or an error.",
+    "links": [
+      "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status",
+      "https://en.wikipedia.org/wiki/World_Wide_Web",
+      "https://en.wikipedia.org/wiki/Web_crawler"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Web_scraping",
+    "title": "Web scraping",
+    "text": "Web scraping extracts specific data from web pages, usually by downloading the HTML and parsing it. Python libraries such as httpx fetch pages and BeautifulSoup parses the HTML tree. Scraping is close to crawling, but a scraper targets particular data while a crawler aims to cover many pages.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Web_crawler",
+      "https://en.wikipedia.org/wiki/HTML",
+      "https://en.wikipedia.org/wiki/Python_(programming_language)",
+      "https://en.wikipedia.org/wiki/Robots.txt"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Larry_Page",
+    "title": "Larry Page",
+    "text": "Larry Page is an American computer scientist who co-founded Google with Sergey Brin. As PhD students at Stanford University they developed the PageRank algorithm, which ranked web pages by their links. PageRank is named after him.",
+    "links": [
+      "https://en.wikipedia.org/wiki/PageRank",
+      "https://en.wikipedia.org/wiki/Google_Search"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Google_Search",
+    "title": "Google Search",
+    "text": "Google Search is the most widely used web search engine. It crawls billions of pages, keeps them in a very large index, and ranks results using hundreds of signals, with PageRank among the earliest. Its spelling correction shows a did you mean suggestion when a query looks misspelled.",
+    "links": [
+      "https://en.wikipedia.org/wiki/PageRank",
+      "https://en.wikipedia.org/wiki/Search_engine",
+      "https://en.wikipedia.org/wiki/Larry_Page",
+      "https://en.wikipedia.org/wiki/Search_engine_indexing"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Vector_space_model",
+    "title": "Vector space model",
+    "text": "The vector space model represents documents and queries as vectors of term weights, often tf-idf weights. Relevance is measured by the cosine of the angle between the query vector and a document vector. It is one of the classic ranking models in information retrieval, alongside BM25.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Tf%E2%80%93idf",
+      "https://en.wikipedia.org/wiki/Okapi_BM25",
+      "https://en.wikipedia.org/wiki/Information_retrieval"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Search_engine_indexing",
+    "title": "Search engine indexing",
+    "text": "Search engine indexing collects, parses and stores page data so that search queries can be answered quickly. The main data structure is the inverted index, built after tokenizing, removing stop words and stemming each page. Without an index, every query would need to scan every stored page.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Inverted_index",
+      "https://en.wikipedia.org/wiki/Stemming",
+      "https://en.wikipedia.org/wiki/Stop_word",
+      "https://en.wikipedia.org/wiki/Search_engine"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Query_expansion",
+    "title": "Query expansion",
+    "text": "Query expansion adds related words to a search query to find more relevant documents. It can add synonyms, stemmed forms or corrected spellings of the words the user typed. Expansion usually raises recall but can lower precision.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Precision_and_recall",
+      "https://en.wikipedia.org/wiki/Stemming",
+      "https://en.wikipedia.org/wiki/Levenshtein_distance"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Levenshtein_distance",
+    "title": "Levenshtein distance",
+    "text": "The Levenshtein distance between two words is the smallest number of single letter insertions, deletions or substitutions that turn one word into the other. Spelling checkers use it to suggest a known word close to a misspelled one. A search engine can use it to offer a did you mean suggestion.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Query_expansion"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Graph_theory",
+    "title": "Graph theory",
+    "text": "Graph theory studies graphs made of nodes connected by edges. The web can be modelled as a directed graph where pages are nodes and hyperlinks are edges. Link analysis algorithms such as PageRank work on this graph.",
+    "links": [
+      "https://en.wikipedia.org/wiki/PageRank",
+      "https://en.wikipedia.org/wiki/Markov_chain",
+      "https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.link_analysis.pagerank_alg.pagerank.html"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Markov_chain",
+    "title": "Markov chain",
+    "text": "A Markov chain is a random process that moves between states, where the next state depends only on the current one. The random surfer behind PageRank is a Markov chain over web pages. PageRank scores are the long-run share of time the surfer spends on each page.",
+    "links": [
+      "https://en.wikipedia.org/wiki/PageRank",
+      "https://en.wikipedia.org/wiki/Graph_theory"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Natural_language_processing",
+    "title": "Natural language processing",
+    "text": "Natural language processing, or NLP, is the field of computing that works with human language text and speech. Basic NLP steps include tokenization, stop word removal and stemming, which every search engine applies before indexing. Python libraries such as NLTK provide these steps ready to use.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Text_segmentation",
+      "https://en.wikipedia.org/wiki/Stemming",
+      "https://en.wikipedia.org/wiki/Stop_word",
+      "https://www.nltk.org/api/nltk.stem.porter.html"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Database_index",
+    "title": "Database index",
+    "text": "A database index is a data structure that speeds up finding rows in a table, usually a B-tree. Without an index the database must scan the whole table. Storing an inverted index in a relational database such as PostgreSQL or SQLite relies on these indexes for fast term lookups.",
+    "links": [
+      "https://www.postgresql.org/docs/current/indexes.html",
+      "https://en.wikipedia.org/wiki/PostgreSQL",
+      "https://en.wikipedia.org/wiki/Inverted_index"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/PostgreSQL",
+    "title": "PostgreSQL",
+    "text": "PostgreSQL is a free and open-source relational database known for reliability and standards support. It offers B-tree and GIN indexes and has its own full text search. Many projects start on SQLite during development and move to PostgreSQL as data grows.",
+    "links": [
+      "https://www.postgresql.org/docs/current/indexes.html",
+      "https://www.postgresql.org/docs/current/textsearch-intro.html",
+      "https://en.wikipedia.org/wiki/Database_index"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+    "title": "Python (programming language)",
+    "text": "Python is a high-level programming language known for readable code and a large standard library. It is widely used for web back-ends, data work and text processing. Frameworks such as FastAPI and libraries such as NLTK and NetworkX are written for Python.",
+    "links": [
+      "https://fastapi.tiangolo.com/tutorial/first-steps/",
+      "https://www.nltk.org/api/nltk.stem.porter.html",
+      "https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.link_analysis.pagerank_alg.pagerank.html",
+      "https://docs.python.org/3/library/asyncio.html"
+    ]
+  },
+  {
+    "url": "https://www.postgresql.org/docs/current/textsearch-intro.html",
+    "title": "Full text search: introduction",
+    "text": "PostgreSQL full text search parses documents into tokens, normalizes them into lexemes and stores them in a tsvector. Queries are written as a tsquery and matched against the stored vectors. The documentation explains why plain LIKE pattern matching cannot rank results by relevance.",
+    "links": [
+      "https://www.postgresql.org/docs/current/indexes.html",
+      "https://en.wikipedia.org/wiki/PostgreSQL"
+    ]
+  },
+  {
+    "url": "https://www.postgresql.org/docs/current/indexes.html",
+    "title": "Indexes",
+    "text": "This chapter of the PostgreSQL documentation explains how indexes speed up queries and the cost they add to inserts and updates. It covers B-tree, hash, GIN and other index types and when to use each. A search engine database needs an index on the term column of its postings table.",
+    "links": [
+      "https://www.postgresql.org/docs/current/textsearch-intro.html",
+      "https://en.wikipedia.org/wiki/PostgreSQL",
+      "https://en.wikipedia.org/wiki/Database_index"
+    ]
+  },
+  {
+    "url": "https://docs.python.org/3/library/urllib.robotparser.html",
+    "title": "urllib.robotparser: parser for robots.txt",
+    "text": "The urllib.robotparser module reads a robots.txt file and answers whether a given user agent may fetch a URL. It also reports the crawl delay and request rate the site asks for. A Python crawler can call can_fetch before every request.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Robots.txt",
+      "https://en.wikipedia.org/wiki/Python_(programming_language)"
+    ]
+  },
+  {
+    "url": "https://docs.python.org/3/library/asyncio.html",
+    "title": "asyncio: asynchronous I/O",
+    "text": "asyncio is the Python library for writing concurrent code with async and await. It suits network programs such as crawlers, which spend most of their time waiting for servers to respond. httpx offers an async client that works with asyncio.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Python_(programming_language)",
+      "https://en.wikipedia.org/wiki/Web_crawler"
+    ]
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status",
+    "title": "HTTP response status codes",
+    "text": "HTTP status codes tell the client how a request went. Codes in the 200 range mean success, 300 codes are redirects, 400 codes are client errors such as 404 Not Found, and 500 codes are server errors. A crawler indexes 200 responses, follows redirects and records errors.",
+    "links": [
+      "https://en.wikipedia.org/wiki/HTTP"
+    ]
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a",
+    "title": "<a>: the anchor element",
+    "text": "The anchor element creates a hyperlink to another page, a file, an email address or a place in the same page. Its href attribute holds the link target and its text describes the destination. Crawlers collect href values to discover new pages.",
+    "links": [
+      "https://en.wikipedia.org/wiki/HTML",
+      "https://en.wikipedia.org/wiki/Hyperlink"
+    ]
+  },
+  {
+    "url": "https://www.nltk.org/api/nltk.stem.porter.html",
+    "title": "nltk.stem.porter module",
+    "text": "NLTK includes an implementation of the Porter stemming algorithm in the nltk.stem.porter module. Calling the stem method on a word returns its stem, for example ranking becomes rank. The module also offers the original 1980 version of the algorithm.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Stemming",
+      "https://en.wikipedia.org/wiki/Natural_language_processing",
+      "https://en.wikipedia.org/wiki/Python_(programming_language)"
+    ]
+  },
+  {
+    "url": "https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.link_analysis.pagerank_alg.pagerank.html",
+    "title": "pagerank: NetworkX documentation",
+    "text": "NetworkX provides a pagerank function that returns the PageRank of every node in a graph as a dictionary. The damping factor alpha defaults to 0.85, the usual chance that the random surfer follows a link. Iteration stops when the scores change less than a small tolerance.",
+    "links": [
+      "https://en.wikipedia.org/wiki/PageRank",
+      "https://en.wikipedia.org/wiki/Graph_theory",
+      "https://en.wikipedia.org/wiki/Python_(programming_language)"
+    ]
+  },
+  {
+    "url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+    "title": "First steps: FastAPI",
+    "text": "The FastAPI tutorial starts with a minimal application that defines a path operation and returns JSON. FastAPI reads type hints to validate query parameters and generates interactive API documentation automatically. A search API can expose a GET endpoint that takes the query and page number.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Python_(programming_language)"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Relevance_(information_retrieval)",
+    "title": "Relevance (information retrieval)",
+    "text": "In information retrieval, relevance describes how well a retrieved document meets the information need behind a query. Test collections record relevance judgments made by people so that ranking functions can be compared. Precision, recall and MRR are all computed from these judgments.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Information_retrieval",
+      "https://en.wikipedia.org/wiki/Precision_and_recall",
+      "https://en.wikipedia.org/wiki/Mean_reciprocal_rank",
+      "https://en.wikipedia.org/wiki/Okapi_BM25"
+    ]
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Web_search_query",
+    "title": "Web search query",
+    "text": "A web search query is the text a user types into a search engine. Most queries are short, often two or three words, and many contain spelling mistakes. Putting words in quotation marks asks for an exact phrase search.",
+    "links": [
+      "https://en.wikipedia.org/wiki/Search_engine",
+      "https://en.wikipedia.org/wiki/Query_expansion",
+      "https://en.wikipedia.org/wiki/Levenshtein_distance"
+    ]
+  }
+]

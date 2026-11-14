@@ -1,0 +1,89 @@
+[
+  {
+    "query": "pagerank",
+    "relevant": [
+      "https://en.wikipedia.org/wiki/PageRank",
+      "https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.link_analysis.pagerank_alg.pagerank.html",
+      "https://en.wikipedia.org/wiki/Markov_chain",
+      "https://en.wikipedia.org/wiki/Larry_Page",
+      "https://en.wikipedia.org/wiki/Graph_theory"
+    ]
+  },
+  {
+    "query": "web crawler",
+    "relevant": [
+      "https://en.wikipedia.org/wiki/Web_crawler",
+      "https://en.wikipedia.org/wiki/Robots.txt",
+      "https://docs.python.org/3/library/urllib.robotparser.html",
+      "https://en.wikipedia.org/wiki/Web_scraping",
+      "https://docs.python.org/3/library/asyncio.html"
+    ]
+  },
+  {
+    "query": "inverted index",
+    "relevant": [
+      "https://en.wikipedia.org/wiki/Inverted_index",
+      "https://en.wikipedia.org/wiki/Search_engine_indexing",
+      "https://en.wikipedia.org/wiki/Database_index",
+      "https://www.postgresql.org/docs/current/indexes.html"
+    ]
+  },
+  {
+    "query": "bm25 ranking",
+    "relevant": [
+      "https://en.wikipedia.org/wiki/Okapi_BM25",
+      "https://en.wikipedia.org/wiki/Tf%E2%80%93idf",
+      "https://en.wikipedia.org/wiki/Vector_space_model",
+      "https://en.wikipedia.org/wiki/Relevance_(information_retrieval)"
+    ]
+  },
+  {
+    "query": "porter stemmer",
+    "relevant": [
+      "https://en.wikipedia.org/wiki/Stemming",
+      "https://www.nltk.org/api/nltk.stem.porter.html",
+      "https://en.wikipedia.org/wiki/Natural_language_processing"
+    ]
+  },
+  {
+    "query": "stop words",
+    "relevant": [
+      "https://en.wikipedia.org/wiki/Stop_word",
+      "https://en.wikipedia.org/wiki/Text_segmentation",
+      "https://en.wikipedia.org/wiki/Natural_language_processing"
+    ]
+  },
+  {
+    "query": "precision recall",
+    "relevant": [
+      "https://en.wikipedia.org/wiki/Precision_and_recall",
+      "https://en.wikipedia.org/wiki/Mean_reciprocal_rank",
+      "https://en.wikipedia.org/wiki/Relevance_(information_retrieval)"
+    ]
+  },
+  {
+    "query": "spelling did you mean",
+    "relevant": [
+      "https://en.wikipedia.org/wiki/Levenshtein_distance",
+      "https://en.wikipedia.org/wiki/Google_Search",
+      "https://en.wikipedia.org/wiki/Query_expansion",
+      "https://en.wikipedia.org/wiki/Web_search_query"
+    ]
+  },
+  {
+    "query": "http status codes",
+    "relevant": [
+      "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status",
+      "https://en.wikipedia.org/wiki/HTTP"
+    ]
+  },
+  {
+    "query": "full text search database",
+    "relevant": [
+      "https://www.postgresql.org/docs/current/textsearch-intro.html",
+      "https://en.wikipedia.org/wiki/PostgreSQL",
+      "https://en.wikipedia.org/wiki/Database_index",
+      "https://www.postgresql.org/docs/current/indexes.html"
+    ]
+  }
+]

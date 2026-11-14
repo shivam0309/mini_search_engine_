@@ -1,0 +1,33 @@
+# Render Blueprint for the back-end (FastAPI).
+# In Render: New > Blueprint, pick this repo, then fill in the values it asks for.
+# The front-end stays on Vercel and the database is Neon PostgreSQL (see README, "Deploy").
+#
+# The service runs from the repo root (no rootDir) because the back-end reads
+# database/schema.sql, and Render hides files outside a service's root directory.
+services:
+  - type: web
+    name: mini-search-engine-api
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:               # front-end changes don't redeploy the API
+        - backend/**
+        - database/**
+        - render.yaml
+        - .python-version
+    envVars:
+      - key: DATABASE_URL          # Neon connection string: postgresql://...?sslmode=require
+        sync: false
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: FRONTEND_ORIGINS      # the Vercel site, e.g. https://name.vercel.app (several: separate with commas)
+        sync: false
+      - key: LOAD_SAMPLE_IF_EMPTY  # first start with an empty database loads the 41 sample pages
+        value: "true"
