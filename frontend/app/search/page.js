@@ -3,7 +3,6 @@ import { redirect } from 'next/navigation';
 import Pagination from '@/components/Pagination';
 import ResultItem from '@/components/ResultItem';
 import ServerError from '@/components/ServerError';
-import SiteHeader, { SiteFooter } from '@/components/SiteHeader';
 import { searchPages, usingSampleData } from '@/lib/api';
 
 export async function generateMetadata({ searchParams }) {
@@ -37,7 +36,6 @@ export default async function SearchPage({ searchParams }) {
             <ServerError message={error.message} />
           )}
         </main>
-        <SiteFooter />
       </>
     );
   }
