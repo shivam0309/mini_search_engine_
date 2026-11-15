@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Dashes, LogoMark } from '@/components/Logo';
 import SearchBox from '@/components/SearchBox';
-import { SiteFooter } from '@/components/SiteHeader';
 import { getIndexSummary, usingSampleData } from '@/lib/api';
 import { formatNumber } from '@/lib/format';
 
@@ -54,7 +53,7 @@ export default async function HomePage() {
         </p>
       </main>
 
-      <SiteFooter />
+      
     </div>
   );
 }
