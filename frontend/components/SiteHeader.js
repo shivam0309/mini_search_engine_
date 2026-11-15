@@ -16,13 +16,4 @@ export default function SiteHeader({ query = '', showSearch = true }) {
   );
 }
 
-export function SiteFooter() {
-  return (
-    <footer className="site-footer">
-      <div className="inner">
-        <span>MCA-I Mini Project by Shivam Ashok Sinhasane</span>
-        <span>D Y Patil Institute of MCA and Management, Akurdi</span>
-      </div>
-    </footer>
-  );
-}
+
