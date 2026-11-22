@@ -69,10 +69,17 @@ MAX_POSITIONS = 32         # positions kept per word per page, for phrase search
 SEARCH_RATE_LIMIT = 60     # searches per minute from one address
 LOGIN_RATE_LIMIT = 10      # sign-in attempts per minute from one address
 
+def default_user_agent(origins: list[str]) -> str:
+    """Name the crawler and give sites a way to find out who runs it. Some sites, such as
+    Wikipedia, turn away crawlers whose user agent has no website or email address."""
+    site = next((o for o in origins if o.startswith("https://")), None)
+    return f"MiniSearchBot/0.1 (+{site}; MCA-I college project)" if site else "MiniSearchBot/0.1 (MCA-I college project)"
+
+
 DEFAULT_SETTINGS = {
     "maxPages": 10_000,
     "maxDepth": 3,
     "delaySeconds": 1.0,
     "obeyRobots": True,
-    "userAgent": "MiniSearchBot/0.1 (MCA-I college project)",
+    "userAgent": default_user_agent(FRONTEND_ORIGINS),
 }

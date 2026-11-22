@@ -12,6 +12,10 @@ D Y Patil Institute of MCA and Management, Akurdi
 | ![Home page](docs/screenshots/01-home.png) | ![Results page](docs/screenshots/03-results-why-this-rank.png) |
 | **Admin overview** | **Evaluation** |
 | ![Admin overview](docs/screenshots/10-admin-overview.png) | ![Evaluation page](docs/screenshots/13-admin-evaluation.png) |
+| **How it works** | **BM25 and PageRank, worked out** |
+| ![How it works page](docs/screenshots/17-how-it-works.png) | ![Rank step with the formulas](docs/screenshots/18-how-it-works-rank.png) |
+| **About** | **Search history** |
+| ![About page](docs/screenshots/19-about.png) | ![Search history page](docs/screenshots/20-history.png) |
 
 Every screen, including mobile, is in [`docs/screenshots`](docs/screenshots).
 
@@ -24,18 +28,18 @@ Every screen, including mobile, is in [`docs/screenshots`](docs/screenshots).
 | M3 Indexer | Inverted index of terms, postings, counts and word positions | `backend/indexer/` |
 | M4 Ranking Engine | BM25 relevance + NetworkX PageRank, blended 0.7 / 0.3 | `backend/ranking/` |
 | M5 Query Processor | Phrase search in quotes, paging, "did you mean", automatic typo fixes, highlighted snippets | `backend/query/` |
-| M6 Search Interface | Next.js search and results pages, desktop and mobile | `frontend/app/` |
+| M6 Search Interface | Next.js search and results pages, an interactive "How it works" walk-through, search history and an About page, desktop and mobile | `frontend/app/` |
 | M7 Admin Dashboard | Sign-in, seed URLs, crawl limits, live crawl progress, crawl log, index rebuild | `frontend/app/admin/`, `backend/app/api/` |
 | M8 Evaluation | Precision@10 and MRR on 10 hand-judged test queries, BM25 + PageRank vs BM25 only | `backend/evaluation/` |
 
-Non-functional requirements: searches take well under 300 ms on 10,000 pages (see [Performance](#performance)). Data is stored in SQLite by default or PostgreSQL, input is checked, searches and sign-ins are rate-limited, there are 43 tests, and it runs on Windows and Linux.
+Non-functional requirements: searches take well under 300 ms on 10,000 pages (see [Performance](#performance)). Data is stored in SQLite by default or PostgreSQL, input is checked, searches and sign-ins are rate-limited, there are 47 tests, and it runs on Windows and Linux.
 
 ## Folder structure
 
 ```
 mini-search-engine/
 ├── frontend/              Next.js app (search pages + admin dashboard)
-│   ├── app/               One folder per page (/, /search, /login, /admin/...)
+│   ├── app/               One folder per page (/, /search, /how-it-works, /history, /about, /login, /admin/...)
 │   ├── components/        Reusable UI pieces (search box, result card, score bar...)
 │   └── lib/
 │       ├── api.js         The only file that talks to the back-end
@@ -136,7 +140,7 @@ Things to know on the free plans:
 
 ```bash
 cd backend
-pytest                            # 43 tests on SQLite
+pytest                            # 47 tests on SQLite
 ```
 
 To run the same tests on PostgreSQL, set `TEST_DATABASE_URL` to an empty test database first. The crawler tests run against a small website started inside the tests, so they need no internet connection.

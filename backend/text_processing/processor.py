@@ -2,7 +2,7 @@
 
 The same steps run on every page and on every query:
 tokenize -> remove stop words -> stem. That is why a search for
-"crawling" also finds pages that say "crawled" or "crawler".
+"crawling" also finds pages that say "crawled" or "crawls".
 """
 
 import re

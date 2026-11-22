@@ -122,3 +122,21 @@ def test_vercel_preview_addresses_are_allowed():
     assert not pattern.fullmatch("https://other-site.vercel.app")
     assert not pattern.fullmatch("https://mini-search.vercel.app.evil.com")
     assert vercel_preview_pattern(["http://localhost:3000"]) is None
+
+
+def test_explain_shows_the_numbers_behind_a_query(client):
+    body = client.get("/api/explain", params={"q": "the web crawler"}).json()
+    assert [t["word"] for t in body["terms"] if t["stop"]] == ["the"]
+    assert [s["stem"] for s in body["stems"]] == ["web", "crawler"]
+    assert body["index"]["pages"] == 41 and body["params"]["k1"] == 1.5
+    top = body["results"][0]
+    assert top["title"] == "Web crawler" and top["inLinks"] >= 1
+    assert abs(sum(t["score"] for t in top["terms"]) - top["bm25"]) < 0.001
+    assert abs(0.7 * top["relevance"] + 0.3 * top["authority"] - top["final"]) < 0.001
+    assert top["terms"][1]["positions"][:2] == [1, 4]
+
+
+def test_explain_corrects_spelling_and_checks_input(client):
+    body = client.get("/api/explain", params={"q": "crawlr"}).json()
+    assert body["correctedFrom"] == "crawlr" and body["query"] == "crawler" and body["total"] > 0
+    assert client.get("/api/explain", params={"q": ""}).status_code == 422

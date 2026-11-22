@@ -72,6 +72,7 @@ class RobotsRules:
         self.client = client
         self.user_agent = user_agent
         self.rules: dict[str, RobotFileParser] = {}
+        self.refused: dict[str, int] = {}  # site -> status code, when the site refused to send robots.txt
 
     def known(self, url: str) -> bool:
         return site_of(url) in self.rules
@@ -82,7 +83,8 @@ class RobotsRules:
         try:
             res = self.client.get(f"{parts.scheme}://{parts.netloc}/robots.txt")
             if res.status_code in (401, 403):
-                parser.disallow_all = True
+                parser.disallow_all = True  # the site turned the crawler away, so stay out
+                self.refused[parts.netloc] = res.status_code
             elif res.status_code == 200:
                 parser.parse(res.text.splitlines())
             else:
@@ -171,6 +173,9 @@ class Crawler:
                 self.robots.fetch(url)  # counts as a request to that site
                 self.mark_request(url)
                 return False             # the page itself is fetched once the site is free again
+            if site_of(url) in self.robots.refused:   # e.g. 403: the site blocks this crawler
+                self.finish(item, "skipped", "Site refused the crawler", self.robots.refused[site_of(url)])
+                return False
             if not self.robots.allowed(url):
                 self.finish(item, "skipped", "Blocked by robots.txt")
                 return False

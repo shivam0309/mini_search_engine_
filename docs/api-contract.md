@@ -43,6 +43,40 @@ Base URL during development: `http://localhost:8000`. Interactive docs: `http://
 - `relevance` = BM25 ÷ best BM25 for this query; `authority` = PageRank ÷ highest PageRank; `final` = 0.7 × relevance + 0.3 × authority.
 - Text in quotes is a phrase whose words must appear side by side.
 
+### `GET /api/explain?q={query}`
+
+The numbers behind one query, step by step, for the website's "How it works" page. Same ranking and spelling correction as `/api/search` (and the same rate limit), plus the inputs of every formula for the top 10 pages. In sample mode the front-end builds the same shape in `lib/mock/engine.js`.
+
+```json
+{
+  "query": "web crawler",
+  "correctedFrom": null,
+  "suggestion": null,
+  "terms": [{ "word": "web", "stem": "web", "stop": false, "indexed": true }, ...],
+  "phrases": [],
+  "index": { "pages": 41, "sites": 7, "terms": 456, "links": 137, "avgLength": 31.1951, "maxPagerank": 0.050601 },
+  "params": { "k1": 1.5, "b": 0.75, "damping": 0.85, "weight": 0.7 },
+  "stems": [{ "stem": "crawler", "words": ["crawler"], "indexed": true, "docFreq": 10, "idf": 1.3863 }, ...],
+  "total": 20,
+  "bestBm25": 3.8427,
+  "results": [
+    {
+      "id": 2, "position": 1, "title": "Web crawler", "url": "https://en.wikipedia.org/wiki/Web_crawler",
+      "host": "en.wikipedia.org", "crawledAt": "2026-11-21T14:23:31+00:00",
+      "length": 39, "pagerank": 0.030087, "inLinks": 5, "linkedFrom": ["HTTP", "Search engine", ...],
+      "terms": [{ "stem": "crawler", "tf": 3, "positions": [1, 4, 44], "score": 2.1745 }, ...],
+      "bm25": 3.8427, "relevance": 1.0, "authority": 0.5946, "final": 0.8784
+    }
+  ],
+  "tookMs": 1.1
+}
+```
+
+- `stems[].idf` is `null` for a word that isn't in the index.
+- `results[].terms[].score` is that word's BM25 share; the shares add up to `bm25`.
+- `positions` holds at most the first 8 word positions (`null` in sample mode if unknown).
+- `linkedFrom` lists up to 6 crawled pages that link to the page; `inLinks` is the full count.
+
 ### `GET /api/stats`
 
 ```json

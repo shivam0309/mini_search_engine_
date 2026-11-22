@@ -1,19 +1,15 @@
-import Link from 'next/link';
 import { Brand } from './Logo';
+import MainNav from './MainNav';
 import SearchBox from './SearchBox';
 
-export default function SiteHeader({ query = '', showSearch = true }) {
+export default function SiteHeader({ query = '', showSearch = true, active }) {
   return (
     <header className="site-header">
       <div className="inner">
         <Brand />
         {showSearch ? <SearchBox defaultValue={query} /> : <span />}
-        <nav className="site-nav" aria-label="Main">
-          <Link href="/login">Admin</Link>
-        </nav>
+        <MainNav active={active} />
       </div>
     </header>
   );
 }
-
-

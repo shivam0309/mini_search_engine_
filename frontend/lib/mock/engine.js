@@ -315,3 +315,108 @@ function round(value, digits = 2) {
   const f = 10 ** digits;
   return Math.round(value * f) / f;
 }
+
+// ---------- Explain one query (the "How it works" page) ----------
+
+const IN_LINKS = DOCUMENTS.map((doc) => DOCUMENTS.filter((d) => d.id !== doc.id && d.links.includes(doc.id)));
+
+function hostOf(url) {
+  try {
+    return new URL(url).host;
+  } catch {
+    return url;
+  }
+}
+
+function positionsOf(doc, s) {
+  const out = [];
+  tokenize(`${doc.title} ${doc.text}`).forEach((word, pos) => {
+    if (out.length < 8 && !isStopword(word) && stem(word) === s) out.push(pos);
+  });
+  return out;
+}
+
+// Same shape as GET /api/explain on the back-end.
+export function explain(rawQuery, { weight = BM25_WEIGHT } = {}) {
+  const started = performance.now();
+  const original = (rawQuery || '').trim();
+  let query = parseQuery(original);
+  let suggestion = suggestSpelling(query);
+  let ranked = rank(query, weight);
+  let correctedFrom = null;
+  if (ranked.scored.length === 0 && suggestion) {
+    correctedFrom = original;
+    query = parseQuery(suggestion);
+    ranked = rank(query, weight);
+    suggestion = null;
+  }
+
+  const N = DOCUMENTS.length;
+  const idfOf = (df) => Math.log(1 + (N - df + 0.5) / (df + 0.5));
+  const stems = [...new Set(query.terms.filter((t) => !t.stop).map((t) => t.stem))].map((s) => {
+    const list = INDEX.postings.get(s);
+    return {
+      stem: s,
+      words: [...new Set(query.terms.filter((t) => t.stem === s).map((t) => t.word))],
+      indexed: Boolean(list),
+      docFreq: list ? list.size : 0,
+      idf: list ? round(idfOf(list.size), 4) : null,
+    };
+  });
+
+  const results = ranked.scored.slice(0, 10).map((r, n) => {
+    const doc = DOCUMENTS[r.i];
+    const norm = 1 - B + B * (INDEX.lengths[r.i] / INDEX.avgLength);
+    const terms = stems
+      .filter((s) => s.indexed && INDEX.postings.get(s.stem).has(r.i))
+      .map((s) => {
+        const tf = INDEX.postings.get(s.stem).get(r.i);
+        return {
+          stem: s.stem,
+          tf,
+          positions: positionsOf(doc, s.stem),
+          score: round((idfOf(s.docFreq) * tf * (K1 + 1)) / (tf + K1 * norm), 4),
+        };
+      });
+    return {
+      id: doc.id,
+      position: n + 1,
+      title: doc.title,
+      url: doc.url,
+      host: hostOf(doc.url),
+      crawledAt: null,
+      length: INDEX.lengths[r.i],
+      pagerank: round(PAGERANK[r.i], 6),
+      inLinks: IN_LINKS[r.i].length,
+      linkedFrom: IN_LINKS[r.i].slice(0, 6).map((d) => d.title),
+      terms,
+      bm25: round(r.bm25Raw, 4),
+      relevance: round(r.relevance, 4),
+      authority: round(r.authority, 4),
+      final: round(r.score, 4),
+    };
+  });
+
+  const stats = indexStats();
+  return {
+    query: correctedFrom ? query.raw : original,
+    correctedFrom,
+    suggestion,
+    terms: query.terms,
+    phrases: query.phrases,
+    index: {
+      pages: N,
+      sites: new Set(DOCUMENTS.map((d) => hostOf(d.url))).size,
+      terms: stats.terms,
+      links: stats.links,
+      avgLength: round(INDEX.avgLength, 4),
+      maxPagerank: round(MAX_PAGERANK, 6),
+    },
+    params: { k1: K1, b: B, damping: 0.85, weight },
+    stems,
+    total: ranked.scored.length,
+    bestBm25: round(ranked.scored.reduce((best, r) => Math.max(best, r.bm25Raw), 0), 4),
+    results,
+    tookMs: round(performance.now() - started, 1),
+  };
+}

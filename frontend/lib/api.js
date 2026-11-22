@@ -5,7 +5,7 @@
 // Set NEXT_PUBLIC_API_URL=http://localhost:8000 in .env.local to use the
 // FastAPI back-end instead. The endpoints are listed in docs/api-contract.md.
 
-import { indexStats, search as sampleSearch } from './mock/engine';
+import { explain as sampleExplain, indexStats, search as sampleSearch } from './mock/engine';
 import {
   DEFAULT_SETTINGS,
   sampleCrawlLog,
@@ -54,6 +54,12 @@ async function request(path, { method = 'GET', body, token } = {}) {
 export async function searchPages(query, page = 1) {
   if (usingSampleData) return sampleSearch(query, { page });
   return request(`/api/search?q=${encodeURIComponent(query)}&page=${page}`, { token: '' });
+}
+
+// The numbers behind one query, step by step (the "How it works" page).
+export async function explainQuery(query) {
+  if (usingSampleData) return sampleExplain(query);
+  return request(`/api/explain?q=${encodeURIComponent(query)}`, { token: '' });
 }
 
 export async function getIndexSummary() {

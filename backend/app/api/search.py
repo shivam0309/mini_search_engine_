@@ -26,6 +26,12 @@ def search(
     return result
 
 
+@router.get("/explain", dependencies=[Depends(search_limit)])
+def explain(q: str = Query(..., min_length=1, max_length=200), db: Database = Depends(get_db)):
+    """The numbers behind one query, step by step, for the "How it works" page."""
+    return query_processor.explain(db, q)
+
+
 @router.get("/stats")
 def stats(db: Database = Depends(get_db)):
     """How many pages and sites are searchable, for the home page."""
