@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Dashes, LogoMark } from '@/components/Logo';
+import MainNav from '@/components/MainNav';
 import SearchBox from '@/components/SearchBox';
 import { getIndexSummary, usingSampleData } from '@/lib/api';
 import { formatNumber } from '@/lib/format';
@@ -18,9 +19,7 @@ export default async function HomePage() {
 
   return (
     <div className="home">
-      <nav className="home-top site-nav" aria-label="Main">
-        <Link href="/login">Admin</Link>
-      </nav>
+      <MainNav className="home-top site-nav" />
 
       <main className="home-main">
         <div className="mark">
@@ -52,8 +51,6 @@ export default async function HomePage() {
               : `Searching ${formatNumber(summary.pages)} ${usingSampleData ? 'sample ' : ''}pages from ${summary.sites} ${summary.sites === 1 ? 'site' : 'sites'}. Every result shows how its score was worked out.`}
         </p>
       </main>
-
-      
     </div>
   );
 }

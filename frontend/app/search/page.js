@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import Pagination from '@/components/Pagination';
+import RememberSearch from '@/components/RememberSearch';
 import ResultItem from '@/components/ResultItem';
 import ServerError from '@/components/ServerError';
+import SiteHeader from '@/components/SiteHeader';
 import { searchPages, usingSampleData } from '@/lib/api';
 
 export async function generateMetadata({ searchParams }) {
@@ -44,6 +46,7 @@ export default async function SearchPage({ searchParams }) {
   return (
     <>
       <SiteHeader query={data.correctedFrom ? data.query : query} />
+      <RememberSearch query={data.correctedFrom ? data.query : query} total={data.total} />
 
       <main className="results-layout">
         <div>
@@ -98,10 +101,15 @@ export default async function SearchPage({ searchParams }) {
           )}
 
           <Pagination query={data.query} page={data.page} pages={data.pages} />
+
+          {data.total > 0 && (
+            <p className="explain-link">
+              Want to see how these were ranked?{' '}
+              <Link href={`/how-it-works?q=${encodeURIComponent(data.query)}`}>Walk this search through every step</Link>
+            </p>
+          )}
         </div>
       </main>
-
-      <SiteFooter />
     </>
   );
 }

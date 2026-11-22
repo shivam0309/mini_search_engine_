@@ -16,6 +16,7 @@ import { formatClock, formatDateTime, formatNumber } from '@/lib/format';
 const OUTCOME_BADGE = {
   Indexed: 'green',
   'Blocked by robots.txt': 'orange',
+  'Site refused the crawler': 'orange',
   'Already seen': 'plain',
   Redirected: 'blue',
   'Not found': 'coral',

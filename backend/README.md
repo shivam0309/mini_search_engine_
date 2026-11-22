@@ -33,7 +33,7 @@ pip install -r requirements.txt
 | `python manage.py search "web crawler"` | Search from the terminal |
 | `python manage.py evaluate` | Precision@10 and MRR on the test queries |
 | `python manage.py benchmark` | How long each test query takes |
-| `pytest` | Run the 43 tests |
+| `pytest` | Run the 47 tests |
 
 ## Settings (environment variables)
 

@@ -88,3 +88,20 @@ def test_runner_crawls_in_background_then_builds_the_index(db, site):
     assert db.value("SELECT COUNT(*) FROM terms") > 0
     assert db.value("SELECT MAX(pagerank) FROM pages") > 0
     assert {r["step"] for r in db.all("SELECT step FROM pipeline_runs")} == {"Crawl", "Parse", "Index", "PageRank"}
+
+
+def test_site_that_refuses_the_crawler(db, site, monkeypatch):
+    from tests.conftest import SITE
+    monkeypatch.setitem(SITE, "/robots.txt", (403, "text/plain", "Please set a user agent with contact details"))
+    seed(db, site.url + "/")
+    Crawler(db, FAST).run()
+    row = db.one("SELECT status_code, outcome FROM crawl_log")
+    assert (row["status_code"], row["outcome"]) == (403, "Site refused the crawler")
+    assert site.paths() == ["/robots.txt"]                       # the page itself is never requested
+
+
+def test_default_user_agent_names_the_site():
+    from app.config import default_user_agent
+    assert default_user_agent(["https://mini-search.vercel.app"]) == \
+        "MiniSearchBot/0.1 (+https://mini-search.vercel.app; MCA-I college project)"
+    assert default_user_agent(["http://localhost:3000"]) == "MiniSearchBot/0.1 (MCA-I college project)"

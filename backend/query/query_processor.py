@@ -11,10 +11,10 @@ Steps for one search:
 import re
 import time
 
-from app.config import BM25_WEIGHT, RESULTS_PER_PAGE
+from app.config import BM25_B, BM25_K1, BM25_WEIGHT, PAGERANK_DAMPING, RESULTS_PER_PAGE
 from app.db import Database
 from ranking.blend import blend
-from ranking.bm25 import bm25_scores
+from ranking.bm25 import bm25_scores, idf, term_score
 from text_processing.processor import is_stopword, stem, tokenize
 
 MAX_QUERY_LENGTH = 200
@@ -95,9 +95,9 @@ def has_phrase(page_id: int, phrase: str, postings: dict) -> bool:
     return False
 
 
-def rank_query(db: Database, query: dict, weight: float = BM25_WEIGHT) -> tuple[list[dict], dict]:
+def rank_query(db: Database, query: dict, weight: float = BM25_WEIGHT, with_positions: bool = False) -> tuple[list[dict], dict]:
     """Every matching page, best first, plus the postings used."""
-    postings = load_postings(db, search_stems(query), with_positions=bool(query["phrases"]))
+    postings = load_postings(db, search_stems(query), with_positions=with_positions or bool(query["phrases"]))
     if not postings:
         return [], postings
     total, avg_length, max_pr = index_totals(db)
@@ -262,6 +262,103 @@ def search(db: Database, raw: str, page: int = 1, weight: float = BM25_WEIGHT) -
         "total": total,
         "page": current,
         "pages": pages,
+        "results": results,
+        "tookMs": round((time.perf_counter() - started) * 1000, 1),
+    }
+
+
+# ---------- Explain one query step by step (the "How it works" page) ----------
+
+EXPLAIN_RESULTS = 10
+
+
+def explain(db: Database, raw: str, weight: float = BM25_WEIGHT) -> dict:
+    """The numbers behind one query, step by step: crawl, process, index, rank.
+    Same ranking as search(), plus the inputs of every formula for the top results."""
+    started = time.perf_counter()
+    original = clean_query(raw)
+    query = parse(original)
+    ranked, postings = rank_query(db, query, weight, with_positions=True)
+    suggestion = suggest_spelling(db, query, set(postings))
+    corrected_from = None
+    if not ranked and suggestion:
+        corrected_from, query = original, parse(suggestion)
+        ranked, postings = rank_query(db, query, weight, with_positions=True)
+        suggestion = None
+
+    total_pages, avg_length, max_pr = index_totals(db)
+    stems = []
+    for s in search_stems(query):
+        entry = postings.get(s)
+        stems.append({
+            "stem": s,
+            "words": list(dict.fromkeys(t["word"] for t in query["terms"] if t["stem"] == s)),
+            "indexed": entry is not None,
+            "docFreq": entry["doc_freq"] if entry else 0,
+            "idf": round(idf(total_pages, entry["doc_freq"]), 4) if entry else None,
+        })
+
+    shown = ranked[:EXPLAIN_RESULTS]
+    details = {}
+    if shown:
+        marks = ",".join("?" * len(shown))
+        rows = db.all(f"SELECT id, url, host, title, crawled_at FROM pages WHERE id IN ({marks})", [r["page_id"] for r in shown])
+        details = {r["id"]: r for r in rows}
+
+    results = []
+    for n, r in enumerate(shown, 1):
+        doc = details[r["page_id"]]
+        linked_from = db.all(
+            "SELECT DISTINCT p.title, p.url FROM links l JOIN pages p ON p.id = l.from_page "
+            "WHERE l.to_url = ? AND l.from_page <> ? ORDER BY p.title",
+            (doc["url"], r["page_id"]),
+        )
+        terms, length, pagerank = [], 0, 0.0
+        for s in stems:
+            hit = postings.get(s["stem"], {}).get("pages", {}).get(r["page_id"])
+            if not hit:
+                continue
+            length, pagerank = hit["length"], hit["pagerank"]
+            positions = [int(x) for x in str(hit["positions"] or "").split(",") if x.strip().isdigit()]
+            terms.append({
+                "stem": s["stem"],
+                "tf": hit["tf"],
+                "positions": positions[:8],
+                "score": round(term_score(hit["tf"], idf(total_pages, s["docFreq"]), hit["length"], avg_length), 4),
+            })
+        results.append({
+            "id": r["page_id"],
+            "position": n,
+            "title": doc["title"] or doc["url"],
+            "url": doc["url"],
+            "host": doc["host"],
+            "crawledAt": doc["crawled_at"],
+            "length": length,
+            "pagerank": round(pagerank, 6),
+            "inLinks": len(linked_from),
+            "linkedFrom": [row["title"] or row["url"] for row in linked_from[:6]],
+            "terms": terms,
+            **{k: round(r[k], 4) for k in ("bm25", "relevance", "authority", "final")},
+        })
+
+    return {
+        "query": query["raw"],
+        "correctedFrom": corrected_from,
+        "suggestion": suggestion,
+        "terms": [{**t, "indexed": t["stem"] in postings} for t in query["terms"]],
+        "phrases": query["phrases"],
+        "index": {
+            "pages": total_pages,
+            "sites": db.value("SELECT COUNT(DISTINCT host) FROM pages WHERE length > 0") or 0,
+            "terms": db.value("SELECT COUNT(*) FROM terms") or 0,
+            "links": db.value("SELECT COUNT(*) FROM links l JOIN pages p ON p.url = l.to_url") or 0,
+            "avgLength": round(avg_length, 4),
+            "maxPagerank": round(max_pr, 6),
+        },
+        "params": {"k1": BM25_K1, "b": BM25_B, "damping": PAGERANK_DAMPING, "weight": weight},
+        "stems": stems,
+        "total": len(ranked),
+        "bestBm25": round(ranked[0]["bm25"], 4) if ranked else 0,
         "results": results,
         "tookMs": round((time.perf_counter() - started) * 1000, 1),
     }
